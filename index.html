@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- Declare the character encoding of the HTML document -->
+        <title>GuideBot</title>
+        <!-- Optimize for mobile devices, prevent the users from zooming -->
+        <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+      
+        <!-- Enable the full screen version on iphone and other mobile devices -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="mobile-web-app-capable" content="yes">
+        
+        <!-- Set the iOS launching icon title -->
+        <meta name="apple-mobile-web-app-title" content="GuideBot">
+        
+        <!-- Make the status bar translucent on iOS -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">      
+        
+        <!-- Import materialize.css -->
+        <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+        
+        <!-- Import Google Icon Font -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        
+        <link rel="apple-touch-icon" sizes="144x144" href="img/icon.png">
+        <link rel="icon" sizes="192x192" href="img/android-icon.png">
+        
+        <style type="text/css">
+            
+            html, 
+            body{
+                overflow-y: scroll;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+            }
+            
+            /* Disable selection of every element */
+            body {
+                font-size: 1.5rem;
+                background-color: #CCCCCC;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                min-height: 100vh;
+                flex-direction: column;
+                -webkit-user-select: none;
+                -moz-user-select: -moz-none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            
+            /* Disable 'save image' touch on mobile sites */
+            img {
+                -webkit-user-select: none;
+                -webkit-touch-callout: none;
+            }
+            
+            /* Disable the original widge features from iOS */
+            input {
+                -webkit-appearance: none;
+                border-radius: 0;
+            }
+            
+            input[type=text] {
+                font-size: 1.5rem;
+            }
+            
+            /* Set specific width to the materialize container, which was 70% by default */
+            .container {
+                width: 300px;
+            }
+
+            .canvascontainer {
+                margin: 0 auto;
+                width: 227.6px;
+                height: 252px;
+                align-self: center;
+                position: top;
+                overflow: hidden;
+            }
+            
+            canvas {
+                margin: auto;
+                display: block;
+                align-content: center;
+                position: absolute;
+            }
+            
+            /* Set menu button to the top right corner */
+            #menuButton {
+                position: absolute;
+                top: 10px;
+                right: 8px;
+                color: #fff;
+            }
+            
+            #recordButton {
+                position: absolute;
+                top: 80px;
+                right: 8px;
+                color: #fff;
+            }
+            
+            #audioTag {
+                position: absolute;
+                top: 1000px;
+            }
+            /* Style the table in the orderview */
+            #information {
+                font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+                width: 100%;
+                margin: auto;
+                font-size: 1.0rem;
+                font-weight: bold;
+                color: #7d7c7c;
+            }
+            
+            /* Enable the "momentum" style scrolling to any element with the class "touch" */
+            .touch {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            div.pinch-zoom,
+            div.pinch-zoom img {
+            /*width: 100%;*/
+            -webkit-user-drag: none;
+            }
+            
+            /* adjust relavant z-position */
+            .hide {
+                z-index: -1;
+            }
+            .show {
+                z-index: 20;
+            }
+
+        </style>
+    </head>
+    
+    <body>
+        
+        <!-- Side navigation bar -->
+        <ul id="slide-out" class="side-nav" style="opacity: 0.7;overflow-y: scroll">
+            <li>
+                <div class="user-view" style="text-align: center">
+                    <div class="background"><img src="img/guidebot-still.jpg" height="200px"></div>
+                </div>
+            </li>
+            
+            <li>
+                <a href=" ">
+                    <strong style="color: #7d7c7c">VCIPL</strong>
+                    <i class="tiny material-icons" style="color: #7d7c7c">refresh</i>
+                </a>
+            </li>
+            
+            <li>
+                <div class="divider">
+                
+                </div>
+            </li>
+            
+            <li align="left">
+                <a id="setcoords" class="collapsible-header waves-effect" style="color: #7d7c7c">Set Destination</a>
+            </li>
+            
+            <li style="text-align: left">
+                <a id="makeorder" class="collapsible-header waves-effect" style="color: #7d7c7c">Place Order</a>
+            </li>
+            
+            <li>
+                <div class="divider"></div>
+            </li>
+
+            <li style="text-align: left">
+                <a id="instructions" class="collapsible-header waves-effect" style="color: #7d7c7c" >Instructions</a>
+            </li>
+            
+            <li style="text-align: left">
+                <a id="aboutus" class="collapsible-header waves-effect" style="color: #7d7c7c" >About Us</a>
+            </li>
+        </ul>
+
+        <!-- The title, the menu icon, and the record button -->
+        <div id="guidebot" style="text-align: center; padding-top: 20px">
+            <strong style="font-size: 2.0rem" class="white-text">GuideBot</strong>
+        </div>
+
+        <a data-activates="slide-out" class="button-collapse">
+            <i data-activates="slide-out" class="medium material-icons" id="menuButton">menu</i>
+        </a>
+
+        <a>
+        <i class="medium material-icons" id="recordButton">mic</i>
+        </a>
+        
+        <br />
+        
+        <!-- Set your destination by clicking anywhere on the map -->
+        <!-- a little bit smaller than the mapcontainer to avoid border disappearance in pinch mode -->
+        <div id="mapContainer" class="canvascontainer">
+            <canvas id="map" width="227.6px" height="252px" class="hide"></canvas>
+            <div class="pinch-zoom">
+                <div id ='pinch' class="show">
+                    <img src="img/vcipl.png">
+                </div>
+            </div>
+        </div>
+        
+        <!-- Set your destination by tapping the buttons below -->
+        <div id="setCoordsView" class="container" style="overflow-y: scroll">
+            
+            <!-- Directly going to the order view by tapping "Next" -->
+            <div class="collection z-depth-1" style="opacity: 0.6">
+                <a id="Next" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">navigate_next</i>&nbsp;&nbsp;&nbsp;&nbsp;Next</a>
+            </div>                
+            
+            <!-- Select saved places by choosing buttons with numbers -->
+            <div class="collection z-depth-1" style="opacity: 0.6">
+                <a id="pinch_on" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">swap_calls</i>&nbsp;&nbsp;&nbsp;&nbsp;Change Scale</a>
+                <a id="canvas_on" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">swap_calls</i>&nbsp;&nbsp;&nbsp;&nbsp;Set Goal</a>
+                <a id="trans" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">directions_subway</i>&nbsp;&nbsp;&nbsp;&nbsp;Room 229 </a>
+                <a id="visual" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">image</i>&nbsp;&nbsp;&nbsp;&nbsp;Room 233</a>
+                <a id="assess" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">equalizer</i>&nbsp;&nbsp;&nbsp;&nbsp;Room 243</a>
+                <a id="fac" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">devices_other</i>&nbsp;&nbsp;&nbsp;&nbsp;Room 247</a>
+                <a id="bio" class="collection-item" style="color:#7d7c7c"><i class="tiny material-icons">bubble_chart</i>&nbsp;&nbsp;&nbsp;&nbsp;Room 251</a>
+            </div>    
+        </div>	
+        
+        <!-- Make orders and receive feedback -->
+        <div id="orderView" class="container" style="overflow-y: scroll">
+                
+            <!-- The "Order" turns to "Cancel" after orders were made -->
+            <div class="collection" style="opacity: 0.6">
+                <a id="orderButton" class="collection-item z-depth-1" style="color: #7d7c7c"><i class="tiny material-icons">navigate_next</i>&nbsp;&nbsp;&nbsp;&nbsp;Order</a>
+                <a id="cancelButton" class="collection-item z-depth-1" style="color: #7d7c7c;display: none"><i class="tiny material-icons">navigate_next</i>&nbsp;&nbsp;Cancel</a>
+            </div>
+            
+            <!-- Drawers where you can view real time information -->
+            <ul class="collapsible" data-collapsible="accordion">
+                
+                <!-- View live video streaming from the robot camera -->
+                <li>
+                    <div class="collapsible-header" style="opacity: 0.6">
+                        <a style="color:#7d7c7c"><i class="material-icons">place</i>Keep Track</a>
+                    </div>
+                    
+                    <div class="collapsible-body">
+                        <div id="trackView" align="center">
+                            <img src="http://139.78.78.107:8080/stream?topic=/camera/rgb/image_raw&type=ros_compressed" width="240px" height="180px">
+                        </div>
+                    </div>
+                </li>
+                    
+                <!-- View dynamic values of the current order -->
+                <li>
+                    <div class="collapsible-header" style="opacity: 0.6">
+                        <a style="color:#7d7c7c"><i class="material-icons">filter_drama</i>Order Info</a>
+                    </div>
+                    
+                    <div class="collapsible-body">
+                        <table id="information" align="center" class="bordered highlight">
+                            <tr>
+                                <td style="text-align: center" width="60%">User ID:</td>
+                                <td id="id" width="50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="60%">Status:</td>
+                                <td id="status" width="50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="60%">Wait No:</td>
+                                <td id="howmany" width="50%"></td>
+                            </tr>
+                            <!-- For testing use -->
+                            <!--<tr>
+                                <td style="text-align: center" width="60%">Target X:</td>
+                                <td id="x" width="50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="60%">Target Y:</td>
+                                <td id="y" width="50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="60%">Status X:</td>
+                                <td id="mapx" width="50%"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: center" width="60%">Status Y:</td>
+                                <td id="mapy" width="50%"></td>
+                            </tr>-->
+                        </table>
+                    </div>
+                </li>    
+            </ul>
+        </div>
+        
+        <div id="instView" class="card #9e9e9e grey darden-1" style="width: 300px;align-self: center; overflow-y: scroll">
+            <div class="card-content white-text">
+                <span class="card-title">Set your destination:</span>
+                <p>
+                    Tap the microphone icon and say something like,
+                </p>
+                <p>
+                    "Go to Bioengineering Center."
+                </p>
+                <p>
+                    Choose saved places and tap buttons like "Room 247".
+                </p>
+                <p>
+                    Double tap the map to zoom in and tap on your destination.
+                </p>
+                
+                <span class="card-title">Place order:</span>
+                <p>
+                    Tap the "Order" button to send in your request.
+                </p>
+                <p>
+                    View video streaming from robot's point of view.
+                </p>
+                <p>
+                    See the robot's location in real time.
+                </p>
+            </div>
+        </div>
+        
+        <div id="aboutView" class="card #9e9e9e grey darden-1" style="width: 300px;align-self: center; overflow-y: scroll">
+            <div class="card-content white-text">
+                <span class="card-title">Guidebot:</span>
+                <p>
+                    A Mobile Computing demo on Kobuki.
+                </p>
+                
+                <span class="card-title">Author:</span>
+                <p>
+                    Andersen Lin, 
+                    Scott Lin
+                </p>
+            </div>
+        </div>
+        
+        <!-- exists for audio.src -->
+        <div align="center"><audio style="display: none" controls autoplay></audio></div>
+        
+        <!-- Import jQuery before materialize.js, underscore.js the premise of pinch-zoom -->
+        <script type="text/javascript" src="js/jquery-2.1.3.min.js"></script>
+        <script type="text/javascript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/HZRecorder.js"></script>
+        <script type="text/javascript" src="js/underscore.js"></script>
+        <script type="text/javascript" src="js/pinch-zoom.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                $('div.pinch-zoom').each(function () {
+                    var pz = new RTP.PinchZoom($(this), {});
+                    localStorage['flag'] = 0;
+                    
+                    function checkOrder() {
+                        if(localStorage['flag'] == 0) {
+                            setTimeout(checkOrder, 50);
+                            return;
+                        } 
+                        pz.zoomFactor = 1;
+                        pz.offset.x = 0;
+                        pz.offset.y = 0;
+                        pz.update();
+                    }
+                    checkOrder();
+                    
+                    setInterval(function() {
+                        localStorage['ratio'] = pz.zoomFactor;
+                    }, 100);
+                });
+            })
+        </script>
+        <script>
+            var recorder;
+            var result;
+            var audio = document.querySelector('audio');
+            function startRecording() {
+                HZRecorder.get(function (rec) {
+                    recorder = rec;
+                    recorder.start();
+                });
+            }
+            function stopRecording() {
+                recorder.stop();
+                recorder.upload();
+                setTimeout(function(){
+                set_goal(destination);}, 3000);
+            }
+            
+            var counter = 0;
+            recordButton.onclick = function () {
+                if ((counter % 2) == 0) {
+                    startRecording();
+                    document.querySelector('#recordButton').style.color = '#f44336';
+                    counter++;
+                } else {
+                    document.querySelector('#recordButton').style.color = '#ffffff';
+                    stopRecording();
+                    counter++;
+                }
+            }
+        </script>
+    </body>
+</html>
+<!--
+    Copyright (c) 2015, Austin Meyers (AK5A) & Mark Silliman
+    Copyright (c) 2018, Scott Lin & Andersen Lin
+    All rights reserved.
+    Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+    1. Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
+    2. Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+    3. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+    http://learn.turtlebot.com/
+
+    DESCRIPTION: THE SKELETON OF THIS WEB PAGE, THIS FILE IS PART OF GUIDEBOT PROJECT
+                 THIS PROGRAM IS FREE SOFTWARE, IS LICENSED UNDER APACHE 2.0
+    AUTHOR: MARK SILLIMAN
+    AUTHOR: SCOTT LIN
+    AUTHOR: ANDERSEN LIN
+    VERSION: V1.4.1
+ -->

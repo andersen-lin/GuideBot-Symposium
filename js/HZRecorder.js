@@ -117,7 +117,7 @@
     		fd["data"] = event.target.result;
  		$.ajax({
        		 type: 'POST',
-		 url:'uploadWav.php', 
+		 url:'js/uploadWav.php', 
        		 data: fd,
         	// processData: false,
         	// contentType: false,
@@ -136,7 +136,7 @@
    						     }
 					    }
 	var client = new HttpClient();
-	client.get('google_speech.php', function(response) {
+	client.get('js/google_speech.php', function(response) {
 		var keyword_1 = "VC";
                 var keyword_2 = "ngineering";
                 var keyword_3 = "ervice";

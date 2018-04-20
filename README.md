@@ -1,4 +1,4 @@
-# <a href="http://ec2-18-216-168-161.us-east-2.compute.amazonaws.com/mobcmp-webapp-v-1-4-1/"><img src="img/readme-icon.png" align="absmiddle"/> Guidebot</a>
+# <a href="http://ec2-18-216-168-161.us-east-2.compute.amazonaws.com/mobcmp-webapp-v-1-4-1/"><img src="img/readme-icon.png" align="absmiddle"/> GuideBot-Symposium</a>
 [![GitHub package version](https://img.shields.io/github/package-json/v/badges/shields.svg)](https://github.com/Andersen1997/mobcmp-webapp-test29-996/blob/master/index.html)
 [![](https://img.shields.io/badge/PoweredBy-Scott&Andersen-red.svg)](https://github.com/Andersen1997/)
 

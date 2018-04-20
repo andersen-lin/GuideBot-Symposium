@@ -4,7 +4,7 @@
 
 **A Mobile Computing demo on Kobuki.**
 ## Set Destination
-* Method 1: Tap the microphone icon and say something like, "Go to Bioengineering Lab".
+* Method 1: Tap the microphone icon and say something like, "Go to Bioengineering Lab."
 <img src="img/readme_1.png"/>
 
 * Method 2: Choose saved places and tap buttons like "Room 247".

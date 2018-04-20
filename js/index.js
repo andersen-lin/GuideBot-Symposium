@@ -164,6 +164,7 @@ tool.captureMouse(map, mousedownCallback);
  * @param {Object} element the user would like to receive full screen
  */
 function launchIntoFullscreen(element) {
+	
   if(element.requestFullscreen) {
     element.requestFullscreen();
   } else if(element.mozRequestFullScreen) {

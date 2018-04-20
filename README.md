@@ -3,26 +3,29 @@
 [![](https://img.shields.io/badge/PoweredBy-Scott&Andersen-red.svg)](https://github.com/Andersen1997/)
 
 **A Mobile Computing demo on Kobuki.**
-## Set Coords
-* Method 1: Tap anywhere on the map.
+## Set Destination
+* Method 1: Tap the microphone icon and say something like, "Go to Bioengineering Lab".
 <img src="img/readme-1.png"/>
 
-* Method 2: Select buttons with exact position.
+* Method 2: Choose saved places and tap buttons like "Room 247".
 <img src="img/readme-2.png">
 
-## Make Order
-* Click on the "Order" button to proceed.
-<img src="img/readme-3.png">
+* Method 3: Double tap the map to zoom in and tap on your destination.
+<img src="img/readme-3png">
 
-* Click on the "Cancel" button to call off.
-<img src="img/readme-4-1.png">
+## Place Order
+* Tap the "Order" button to send in your request.
+<img src="img/readme-4.png">
 
-* Keep track by streaming images.
-<img src="img/readme-5-1.png">
+* View video streaming from robot's point of view.
+<img src="img/readme-5.png">
 
-* View real time values.
-<img src="img/readme-6-1.png">
+* See the robot's location in real time.
+<img src="img/readme-6.png">
+
+* Tap the "Cancel" button to call off.
+<img src="img/readme-7.png">
 
 ## Other Features
-* Click on the menu icon for more.
-<img src="img/readme-7.png">
+* Tap the menu icon and open side navigation menu for more.
+<img src="img/readme-8.png">

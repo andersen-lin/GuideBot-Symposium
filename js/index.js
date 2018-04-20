@@ -60,7 +60,6 @@ window.onload = function () {
  * @param {Object} event includes returned coordinate from the 'mousedown' listener
  */
 function mousedownCallback(event) {
-        M.toast({html: 'I am a toast!'});
     var x = event.point.x;
     var y = event.point.y;
     var x_new = localStorage['touchx'];

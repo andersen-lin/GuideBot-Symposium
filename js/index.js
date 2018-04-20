@@ -60,6 +60,7 @@ window.onload = function () {
  * @param {Object} event includes returned coordinate from the 'mousedown' listener
  */
 function mousedownCallback(event) {
+	
     var x = event.point.x;
     var y = event.point.y;
     var x_new = localStorage['touchx'];
@@ -123,6 +124,7 @@ window.tool.captureMouse = function (element, mousedownCallback) {
      * @return {Object} event includes the mouse coordinate relate to the element
      */
     function getPoint(event) {
+	    
         // Compatible with IE browser
         event = event || window.event;
         
@@ -174,10 +176,12 @@ function launchIntoFullscreen(element) {
 }
 
 guidebot.onclick = function () {
+	
     launchIntoFullscreen(document.documentElement);
 }
 
 canvas_on.onclick = function () {
+	
     document.getElementById('pinch').className = 'hide';
     document.getElementById('map').className = 'show';
     document.querySelector('#canvas_on').style.display = 'none';
@@ -221,6 +225,7 @@ canvas_on.onclick = function () {
 }
 
 pinch_on.onclick = function ()  {
+	
     document.getElementById('map').className = 'hide';
     document.getElementById('pinch').className = 'show';
     document.querySelector('#pinch_on').style.display = 'none';
@@ -267,6 +272,7 @@ Next.onclick = function () {
 }
 
 function set_goal(destination) {
+	
     var xCoord;
     var yCoord;
     if (destination=="empty")

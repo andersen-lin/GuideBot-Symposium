@@ -11,7 +11,7 @@
 <img src="img/readme_2.png">
 
 * Method 3: Double tap the map to zoom in and tap on your destination.
-<img src="img/readme_3png">
+<img src="img/readme_3.png">
 
 ## Place Order
 * Tap the "Order" button to send in your request.

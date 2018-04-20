@@ -5,27 +5,27 @@
 **A Mobile Computing demo on Kobuki.**
 ## Set Destination
 * Method 1: Tap the microphone icon and say something like, "Go to Bioengineering Lab".
-<img src="img/readme-1.png"/>
+<img src="img/readme_1.png"/>
 
 * Method 2: Choose saved places and tap buttons like "Room 247".
-<img src="img/readme-2.png">
+<img src="img/readme_2.png">
 
 * Method 3: Double tap the map to zoom in and tap on your destination.
-<img src="img/readme-3png">
+<img src="img/readme_3png">
 
 ## Place Order
 * Tap the "Order" button to send in your request.
-<img src="img/readme-4.png">
+<img src="img/readme_4.png">
 
 * View video streaming from robot's point of view.
-<img src="img/readme-5.png">
+<img src="img/readme_5.png">
 
 * See the robot's location in real time.
-<img src="img/readme-6.png">
+<img src="img/readme_6.png">
 
 * Tap the "Cancel" button to call off.
-<img src="img/readme-7.png">
+<img src="img/readme_7.png">
 
 ## Other Features
 * Tap the menu icon and open side navigation menu for more.
-<img src="img/readme-8.png">
+<img src="img/readme_8.png">

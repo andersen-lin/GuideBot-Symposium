@@ -3,6 +3,7 @@
 [![](https://img.shields.io/badge/PoweredBy-Scott&Andersen-red.svg)](https://github.com/Andersen1997/)
 
 **A Mobile Computing demo on Kobuki.**
+[Project report](https://github.com/Andersen1997/GuideBot-Symposium/blob/master/wentz.pdf)
 ## Set Destination
 * Method 1: Tap the microphone icon and say something like, "Go to Bioengineering Lab."
 <img src="img/readme_1.png"/>
